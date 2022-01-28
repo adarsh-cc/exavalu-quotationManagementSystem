@@ -30,7 +30,7 @@ public class DealerDao {
                     + "    dealer.dealerEmailId,\n"
                     + "    dealer.dealerContactInfo,\n"
                     + "    dealer.zipcode\n"
-                    + "FROM quotationmanagementsystem.dealer where dealerEmailId=? and password=?";
+                    + "FROM quotationmanagementsystems.dealer where dealerEmailId=? and password=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, emailId);
             ps.setString(2, password);
@@ -65,7 +65,7 @@ public class DealerDao {
         int i = 0;
         try {
             con = ConnectionManager.getConnection();
-            String sql = "INSERT INTO quotationmanagementsystem.dealer\n"
+            String sql = "INSERT INTO quotationmanagementsystems.dealer\n"
                     + "(dealerUserName,\n"
                     + "password,\n"
                     + "dealerFirstName,\n"

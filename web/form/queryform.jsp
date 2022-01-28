@@ -154,7 +154,7 @@
 									</table>
 								</div>
 							</div>
-                                        <a href="bbbootstrap-snippet.html">submit</a>
+                                        <a href="quotationGeneration.html">submit</a>
 			            </section>
 		        	</div>
 		        </form>

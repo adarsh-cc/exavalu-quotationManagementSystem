@@ -23,7 +23,7 @@ public class AdminDao {
                     "admin.lastName,\n" +
                     "admin.emailId,\n" +
                     "admin.phoneNumber\n" +
-                    "FROM quotationmanagementsystem.admin where userName = ? and password = ?";    
+                    "FROM quotationmanagementsystems.admin where userName = ? and password = ?";    
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1 ,userName);
         ps.setString(2 ,password);
