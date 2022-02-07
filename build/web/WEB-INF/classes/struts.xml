@@ -1,0 +1,118 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <include file="example.xml"/>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <action name="adminLogin" class = "com.quotation.action.AdminAction" method = "adminLogin">
+            <result name = "failed">/adminlogin.jsp</result>
+            <result name = "Loggedin">/admindashboard.jsp</result>
+        </action>
+        <action name="adminLogout" class = "com.quotation.action.AdminAction" method = "adminLogout">
+<!--            <result name = "Failed">/dealerdashboard.jsp</result>-->
+            <result name = "LoggedOut">/adminlogin.jsp</result>
+        </action>
+        <action name="dealerlogin" class = "com.quotation.action.DealerAction" method = "dealerLogin">
+            <result name = "Failed">/dealerlogin.jsp</result>
+            <result name = "LoggedIn">/dealerdashboard.jsp</result>
+        </action>
+        <action name="dealerlogout" class = "com.quotation.action.DealerAction" method = "dealerLogout">
+<!--            <result name = "Failed">/dealerdashboard.jsp</result>-->
+            <result name = "LoggedOut">dealerlogin.jsp</result>
+        </action>
+        <action name="dealerRegister" class = "com.quotation.action.DealerAction" method = "dealerRegister">
+            <result name = "Failed">/landing.jsp</result>
+            <result name = "Registered">/dealerlogin.jsp</result>
+        </action>
+        <action name="productRecord" class = "com.quotation.action.ProductAction" method = "showProduct">
+            <result name = "SUCCESS">/pages/adminproduct.jsp</result>
+            
+        </action>
+        <action name="companyRecord" class = "com.quotation.action.CompanyAction" method = "showCompany">
+            <result name = "REPORT">/pages/admincompany.jsp</result>      
+        </action>
+        
+        <action name="dealerRecord" class = "com.quotation.action.DealerAction" method = "showDealer">
+            <result name = "REPORT">/pages/admindealer.jsp</result>      
+        </action>
+        <action name="orderRecord" class = "com.quotation.action.OrderAction" method = "showOrder">
+            <result name = "REPORT">/pages/adminorder.jsp</result>      
+        </action>
+        <action name="registerproduct" class = "com.quotation.action.ProductAction" method = "executeProduct">
+            <result name = "Registered" type="redirect">productRecord</result>      
+        </action>
+        <action name="updateproductdetails" class = "com.quotation.action.ProductAction" method = "updateProduct">
+            <result name = "UPDATE">/pages/updateadminproduct.jsp</result>      
+        </action>
+        <action name="deleterecord" class = "com.quotation.action.ProductAction" method = "deleteProduct">
+            <result name = "DELETE" type="redirect">quotationRecord</result>      
+        </action>
+        <action name="registerdealer" class = "com.quotation.action.DealerAction" method = "executeDealer">
+            <result name = "Registered" type="redirect">dealerRecord</result>      
+        </action>
+        <action name="deletedealer" class = "com.quotation.action.DealerAction" method = "deleteDealer">
+            <result name = "DELETE" type="redirect">dealerRecord</result>      
+        </action>
+         <action name="prodctCategory" class = "com.quotation.action.ProductAction" method = "getProductCategory">
+            <result name = "CATEGORY">../form/form.jsp</result> 
+           
+        </action>
+        <action name="prodctCategory1" class = "com.quotation.action.ProductAction" method = "getProductCategory">
+            <result name = "CATEGORY">../addproductform/addadminproduct.jsp</result> 
+        </action>
+        <action name="productMake" class = "com.quotation.action.ProductAction" method = "getProducts">
+            <result name = "ProductList">../form/formProductMake.jsp</result> 
+        </action>
+        <action name="AddProductToCart" class = "com.quotation.action.AddProductToCart" method = "AddToCart">
+            <result name = "ADDED">../form/formProductMake.jsp</result> 
+        </action>
+        <action name="dealerproductRecord" class = "com.quotation.action.ProductAction" method = "showProduct">
+            <result name = "SUCCESS">/pages/dealerproduct.jsp</result>
+            
+        </action>
+        <action name="dealercompanyRecord1" class = "com.quotation.action.CompanyAction" method = "showCompany">
+            <result name = "REPORT">/pages/dealercompany.jsp</result>      
+        </action>
+        <action name="registercompany" class = "com.quotation.action.CompanyAction" method = "executeCompany">
+            <result name = "Registered" type="redirect">companyRecord</result>      
+        </action>
+        <action name="updatecompanydetails" class = "com.quotation.action.CompanyAction" method = "updateCompany">
+            <result name = "UPDATE">/pages/updateadmincompany.jsp</result>      
+        </action>
+        <action name="dealercompanyRecord" class = "com.quotation.action.CompanyAction" method = "deleteCompany">
+            <result name = "DELETE" type="redirect">companyRecord</result>      
+        </action>
+      
+      
+      
+       <action name="getQuotation" class = "com.quotation.action.QuotationAction" method = "getQuote">
+            <result name = "AddedProducts">../form/yourQuotation.jsp</result> 
+        </action>
+<!--         <action name="acceptQuotation" class = "com.quotation.action.QuotationAction" method = "quotationAccepted">
+            <result name = "Accepted">./dealerdashboard1.jsp</result> 
+        </action>-->
+         <action name="declinedQuotation" class = "com.quotation.action.QuotationAction" method = "quotationDeclined">
+            <result name = "Declined">./dealerdashboard1.jsp</result> 
+        </action>
+        
+        
+        
+        
+        
+        <action name="quotationRecord" class = "com.quotation.action.QuotationShow" method = "showQuotation">
+            <result name = "REPORT">/pages/admindashboard1.jsp</result>
+        </action>
+        
+        <action name="acceptQuotation" class = "com.quotation.action.QuotationAction" method = "quotationAccepted">
+            <result name = "Accepted" type="chain">dealerquotation</result> 
+<!--            //./dealerdashboard1.jsp-->
+        </action>
+        <action name="dealerquotation" class = "com.quotation.action.QuotationAction" method = "showQuotationForLoggedinDealer">
+            <result name = "Show">/pages/dealerdashboard1.jsp</result>
+            <result name = "LogOut1" type="redirect">dealerlogout</result>
+            
+        </action>
+    </package>
+</struts>

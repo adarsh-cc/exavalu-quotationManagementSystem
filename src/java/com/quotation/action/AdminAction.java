@@ -7,9 +7,18 @@ package com.quotation.action;
 
 import com.quotation.dao.AdminDao;
 import com.quotation.pojos.Admin;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import org.apache.log4j.Level;
 
-public class AdminAction {
+import org.apache.log4j.Logger;
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
+
+public class AdminAction implements SessionAware{
     private int userID;
     private String userName;
     private String firstName;
@@ -18,6 +27,19 @@ public class AdminAction {
     private String password;
     private String phoneNumber;
     private String msg;
+    
+    private ResultSet rs = null;
+    private Admin admin = null;
+    private List<Admin> adminList = null;
+    private boolean noData = false;
+    AdminDao dao= new AdminDao();
+    private String submitType;
+    
+    // For log4j
+    static final Logger LOGGER = Logger.getLogger(AdminAction.class);
+    private static final Logger log = Logger.getLogger(AdminAction.class);
+    
+    private SessionMap<String, Object> sessionMap;
 
     /**
      * @return the userID
@@ -138,13 +160,112 @@ public class AdminAction {
         {
             msg = "Successfully Logged In!!";
             status = "Loggedin";
+            sessionMap.put("Admin", admin);
         }
         else
             
         {
-            msg = "Incorrect Credentials!!";
-            status = "failed";
+           msg = "Incorrect Credentials!!";
+          status = "failed";
         }
+        
+        // this code use for log4j
+        LOGGER.info("This is a logging statement from admin");
+        log.log(Level.INFO, "This is info from Level.INFO");
         return status;
+    }
+    
+    public String adminLogout() throws SQLException{
+        String status;
+        if(sessionMap !=null){
+            setMsg("Successfully Logged Out");
+            status = "LoggedOut";
+            sessionMap.invalidate();
+        }
+        else{
+            status = "Failed";
+        }
+          LOGGER.info("This is a loggedout statement from admin");
+        log.log(Level.INFO, "This is info from Level.INFO");
+        return status;
+    }
+    public String reportUser() throws Exception {
+        //Admin admin = new Admin();
+        try {
+            setAdminList(new ArrayList<>());
+            setAdminList(dao.report());
+            
+
+            if (!adminList.isEmpty() ) {
+                setNoData(false);
+                System.out.println("Users retrieve = "+getAdminList().size());
+                System.out.println("setting nodata=false");
+            } else {
+                setNoData(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "REPORT";
+    }
+    /**
+     * @return the rs
+     */
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    /**
+     * @param rs the rs to set
+     */
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    /**
+     * @return the adminList
+     */
+    public List<Admin> getAdminList() {
+        return adminList;
+    }
+
+    /**
+     * @param adminList the adminList to set
+     */
+    public void setAdminList(List<Admin> adminList) {
+        this.adminList = adminList;
+    }
+
+    /**
+     * @return the noData
+     */
+    public boolean isNoData() {
+        return noData;
+    }
+
+    /**
+     * @param noData the noData to set
+     */
+    public void setNoData(boolean noData) {
+        this.noData = noData;
+    }
+
+    /**
+     * @return the submitType
+     */
+    public String getSubmitType() {
+        return submitType;
+    }
+
+    /**
+     * @param submitType the submitType to set
+     */
+    public void setSubmitType(String submitType) {
+        this.submitType = submitType;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> map) {
+        sessionMap = (SessionMap) map;
     }
 }

@@ -47,10 +47,7 @@
                                     <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                     <input type="password" name="password" id="pass" placeholder="Enter Your Password"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                    <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label for="phone"><i class="zmdi zmdi-email"></i></label>
                                     <input type="text" name="dealerContactInfo" id="phone" placeholder="Enter Your Phone Number"/>
